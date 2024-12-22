@@ -4,34 +4,24 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
+
 
 class CategorySeeder extends Seeder
 {
-    public $categories = [
-        [
-            'id' => 1,
-            'name' => 'Cafe',
-            'description' => '',
-        ],
-        [
-            'id' => 2,
-            'name' => 'Chicken',
-            'description' => '',
-        ],
-    ];
-
-    private function getCategories()
-    {
-        return $this->categories;
-    }
 
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        foreach ($this->getCategories() as $category) {
-            Category::create($category);
+        $faker = Faker::create();
+
+        foreach (range(1, 1000) as $index) {
+            Category::create([
+                'name' => $faker->word,
+                'description' => $faker->sentence,
+            ]);
         }
     }
 }
