@@ -10,5 +10,9 @@ Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'store
 Route::get('/checkout/{order}', [App\Http\Controllers\CheckoutController::class, 'show'])->name('checkout.show');
 
 Route::get('/order-complete/{order}', App\Http\Controllers\OrderCompleteController::class)->name('orders.complete');
-
-
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::delete('/profile', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+Route::get('/api-tokens', [App\Http\Controllers\ApiTokenManagerController::class, 'index'])->name('apiTokens.index');
